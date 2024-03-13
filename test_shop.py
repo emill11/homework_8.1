@@ -25,6 +25,7 @@ class TestProducts:
         # TODO напишите проверки на метод check_quantity
         assert product.check_quantity(1000)
         assert not product.check_quantity(1001), f"we dont have 1001 books"
+        assert product.check_quantity(999)
 
     def test_product_buy(self, product):
         # TODO напишите проверки на метод buy
@@ -63,3 +64,14 @@ class TestCart:
         cart.add_product(product, 1000)
         with pytest.raises(ValueError):
             cart.buy()
+
+    def test_clear(self, cart, product):
+        cart.add_product(product, 10)
+        cart.clear()
+        assert not cart.products
+
+    def test_get_total_price(self, cart, product):
+        cart.add_product(product, 10)
+        total_price = cart.get_total_price()
+        expected_total_price = product.price * 10
+        assert total_price == expected_total_price

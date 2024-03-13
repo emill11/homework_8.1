@@ -18,10 +18,7 @@ class Product:
         TODO Верните True если количество продукта больше или равно запрашиваемому
             и False в обратном случае
         """
-        if self.quantity >= quantity:
-            return True
-        else:
-            return False
+        return self.quantity >= quantity
 
     def buy(self, quantity):
         """
@@ -77,10 +74,13 @@ class Cart:
                 self.products[product] -= remove_count
 
     def clear(self):
-        raise NotImplementedError
+        self.products.clear()
 
     def get_total_price(self) -> float:
-        raise NotImplementedError
+        total = 0
+        for product, count in self.products.items():
+            total += product.price * count
+        return total
 
     def buy(self):
         """
